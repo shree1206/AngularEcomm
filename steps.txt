@@ -1,0 +1,85 @@
+1. After ng new Ecomm use the particulr theme
+   put all relevant files in assets/sccs/theme folder
+   use theme styles in angular.json
+   "styles": [
+              "src/assets/scss/style.scss"
+    ]
+---------------------------- install packages ----------------------------
+2.  npm install ngx-toastr --save --legacy-peer-deps
+     @import '~ngx-toastr/toastr.css'; in src/assets/scss/style.scss
+3.  npm install @angular/animations --save --legacy-peer-deps
+4.  npm install font-awesome --save --legacy-peer-deps
+5.  npm install bootstrap --save --legacy-peer-deps
+6.  ng add @angular/localize --legacy-peer-deps
+     npm install @ng-bootstrap/ng-bootstrap --save --legacy-peer-deps
+7.  npm install feather-icons --force (for dynamic icons)
+8.  npm install sweetalert2 --save --force (for customize popup)
+9.  npm i -S ngx-ckeditor --force
+10. npm install @swimlane/ngx-datatable --save --force
+11. npm install ng2-smart-table --save --force
+12. npm install angular-count-to --save --force
+13. npm install ng2-charts --save --force
+      npm install chart.js --save --force
+14. npm install ng-chartist chartist --save --force
+15. npm install @types/chartist --save-dev --force
+16. npm install ng2-google-charts --save --force
+
+----------------------                   --------------------------------
+
+17. Folder Structure
+     components(All Feature modules)
+       Auth Module -> 
+          ng g m auth --routing
+          ng g g auth/auth --skip-tests
+          ng g s auth/auth --skip-tests
+          ng g c auth/login --skip-tests
+       Dashboard Module -> 
+          ng g m dashboard --routing
+          ng g c dashboard/dashboard --skip-tests --flat
+       Invoice Module ->
+          ng g m invoice --routing
+          ng g c invoice/invoice --skip-tests --flat
+       Masters Module ->
+          ng g m masters --routing
+          ng g c masters/brandlogo --skip-tests
+          ng g c masters/category --skip-tests 
+          ng g c masters/color --skip-tests 
+          ng g c masters/size --skip-tests
+          ng g c masters/tag --skip-tests
+          ng g c masters/usertype --skip-tests
+       Products Module
+          ng g m products --routing
+          ng g c products/physical/add-product --skip-tests
+          ng g c products/physical/product-lists --skip-tests
+       Reports Module
+          ng g m reports --routing
+          ng g c reports/reports --skip-tests --flat
+       Sales Module
+          ng g m sales --routing
+          ng g c sales/orders --skip-tests
+          ng g c sales/transactions --skip-tests
+       Settings Module
+          ng g m settings --routing
+          ng g c settings/profile --skip-tests
+       Users Module
+          ng g m users --routing
+          ng g c users/create-user --skip-tests
+          ng g c users/list-user --skip-tests
+
+     shared Module (common things)
+       ng g m shared (without routing)
+       components(folder)
+          ng g c breadcrumb --skip-tests
+          ng g c footer --skip-tests
+          ng g c header --skip-tests
+          ng g c sidebar --skip-tests
+          ng g c feather-icon --skip-tests
+       data (static data e.g. for charts)
+       layout
+          ng g c content-layout --skip-tests
+       routes
+       services
+       
+     interceptors
+     
+     validations
