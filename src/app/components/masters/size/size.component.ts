@@ -5,6 +5,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { DBOperations } from 'src/app/shared/services/db-operations';
 import { NoWhiteSpaceValidator, TextFieldValidators } from 'src/app/shared/validations/validations.validator';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-size',
@@ -155,14 +156,40 @@ export class SizeComponent implements OnInit, OnDestroy {
     let obj = {
       id: id
     }
-    this._dataService.post(environment.BASE_API_PATH + 'SizeMaster/Delete/', obj).subscribe((res) => {
-      if (res.isSuccess) {
-        this._toastr.success("Data Deleted successfully", "Size Master");
-        this.getData();
-      } else {
-        this._toastr.error(res.errors[0], "Size Master");
-      }
-    });
+    Swal.fire(
+      {
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this imaginary file!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.value) {
+          this._dataService.post(environment.BASE_API_PATH + 'SizeMaster/Delete/', obj).subscribe((res) => {
+            if (res.isSuccess) {
+              //this._toastr.success("Data Deleted successfully", "Size Master");
+              Swal.fire('Deleted!', 'Your data has been deleted.', 'success')
+              this.getData();
+            } else {
+              this._toastr.error(res.errors[0], "Size Master");
+            }
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire('Cancelled', 'Your data is safe :)', 'error')
+        }
+      });
+  }
+
+  onTabChange(e: any) {
+    if (e.activeId == 'addTab') {
+      this.addForm.reset({
+        id: 0,
+        name: ''
+      });
+      this.dbOps = DBOperations.create;
+      this.buttonText = "Submit";
+    }
   }
 
   ngOnDestroy() {

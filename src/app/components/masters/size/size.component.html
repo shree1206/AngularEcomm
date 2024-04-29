@@ -4,7 +4,7 @@
             <h5>Size</h5>
         </div>
         <div class="card-body tab2-card">
-            <ul ngbNav #nav="ngbNav" class="nav-tabs" activeId="viewTab">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs" activeId="viewTab" (navChange)="onTabChange($event)">
                 <li ngbNavItem="addTab">
                     <a ngbNavLink> Add</a>
                     <ng-template ngbNavContent>
@@ -48,8 +48,13 @@
                                                 <ngx-datatable class="bootstrap" [rows]="objRows" [columnMode]="'force'"
                                                     [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
                                                     [limit]="5">
-                                                    <ngx-datatable-column name="name"></ngx-datatable-column>
-                                                    <ngx-datatable-column name="createdOn"></ngx-datatable-column>
+                                                    <ngx-datatable-column name="Name"></ngx-datatable-column>
+                                                    <ngx-datatable-column name="Created Date" prop="createdOn">
+                                                        <ng-template let-row="row" let-value="value"
+                                                            ngx-datatable-cell-template>
+                                                            {{row.createdOn}}
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
                                                     <ngx-datatable-column name="action" prop="id">
                                                         <ng-template let-row="row" let-value="value"
                                                             ngx-datatable-cell-template>
