@@ -14,36 +14,55 @@ export class HeaderInterceptor implements HttpInterceptor {
     let request: any;
     let currentUser: any;
     let isLoggedIn: boolean;
-    this._authService.isLoggedIn.subscribe(res => {
-      isLoggedIn = res;
-      if (isLoggedIn) {
-        this._authService.currentUser.subscribe(res => {
-          currentUser = res;
-          console.log(res)
-          if (req.headers.has('isImage')) {
-            request = req.clone({ headers: req.headers.delete('isImage') });
-            request = req.clone({
-              setHeaders: {
-                'Authorization': `Bearer ${currentUser.token}`
-              }
-            });
-          } else {
-            request = req.clone({
-              setHeaders: {
-                'Authorization': `Bearer ${currentUser.token}`,
-                'Content-Type': 'application/json'
-              }
-            });
+    if (localStorage.getItem('userDetails')) {
+      currentUser = JSON.parse(localStorage.getItem('userDetails')!);
+      if (req.headers.has('isImage')) {
+        request = req.clone({ headers: req.headers.delete('isImage') });
+        request = req.clone({
+          setHeaders: {
+            'Authorization': `Bearer ${currentUser.token}`
           }
         });
       } else {
         request = req.clone({
           setHeaders: {
+            'Authorization': `Bearer ${currentUser.token}`,
             'Content-Type': 'application/json'
           }
         });
       }
-    });
+    } else {
+      this._authService.isLoggedIn.subscribe(res => {
+        isLoggedIn = res;
+        if (isLoggedIn) {
+          debugger;
+          this._authService.currentUser.subscribe(res => {
+            currentUser = res;
+            if (req.headers.has('isImage')) {
+              request = req.clone({ headers: req.headers.delete('isImage') });
+              request = req.clone({
+                setHeaders: {
+                  'Authorization': `Bearer ${currentUser.token}`
+                }
+              });
+            } else {
+              request = req.clone({
+                setHeaders: {
+                  'Authorization': `Bearer ${currentUser.token}`,
+                  'Content-Type': 'application/json'
+                }
+              });
+            }
+          });
+        } else {
+          request = req.clone({
+            setHeaders: {
+              'Content-Type': 'application/json'
+            }
+          });
+        }
+      });
+    }
     return next.handle(request);
   }
 }
