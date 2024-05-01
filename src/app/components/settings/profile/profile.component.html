@@ -1,1 +1,68 @@
-<p>profile works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="profile-details text-center">
+                        <img [src]="imagePath" alt="User Image"
+                            class="img-fluid img-90 rounded-circle blur-up lazyloaded">
+                        <h5 class="f-w-600 mb-0">{{fullName}}</h5>
+                        <span>{{emailId}}</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <ul ngbNav #nav="ngbNav" class="nav-tabs" activeId="viewTab">
+                        <li ngbNavItem="viewTab">
+                            <a ngbNavLink> <app-feather-icon [icon]="'user'"></app-feather-icon> Profile</a>
+                            <ng-template ngbNavContent>
+
+                                <div class="tab-pane fade show active" role="tabpanel"
+                                    aria-labelledby="top-profile-tab">
+                                    <h5 class="f-w-600"> Profile</h5>
+                                    <div class="table-responsive profile-table">
+                                        <table class="table table-responsive">
+                                            <tbody>
+                                                <tr>
+                                                    <td>First Name:</td>
+                                                    <td>{{firstName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Last Name:</td>
+                                                    <td>{{lastName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td>{{emailId}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                        </li>
+                        <li ngbNavItem="registertab">
+                            <a ngbNavLink><app-feather-icon [icon]="'edit'"></app-feather-icon> Profile</a>
+                            <ng-template ngbNavContent>
+
+                                <input class="form-control col-xl-8 col-md-7" type="file" #file
+                                    (change)="selectFile(file.files)">
+                                <!-- accept="image/x-png,image/gif,image/jpeg" -->
+
+                                <div class="col-xl-3 col-md-4"></div>
+                                <img [src]="editImagePath" alt="brandlogo" width="100px" height="100px" />
+                                <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
