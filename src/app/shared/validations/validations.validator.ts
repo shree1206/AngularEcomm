@@ -1,85 +1,95 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 //validatins: Allow alphanumeric char and space only
 export class TextFieldValidators {
-    static validTextField(fc: FormControl) {
-        if (fc.value != undefined && fc.value != "") {
-            const regex = /^[0-9a-zA-Z ]+$/;
+    static validTextField() {
+        return (fc: FormControl): ValidationErrors | null => {
+            if (fc.value != undefined && fc.value != "") {
+                const regex = /^[0-9a-zA-Z ]+$/;
 
-            if (regex.test(fc.value)) {
-                return null;
+                if (regex.test(fc.value)) {
+                    return null;
+                } else {
+                    return { validTextField: true };
+                }
             } else {
-                return { validTextField: true }
+                return null;
             }
-        } else {
-            return null;
-        }
+        };
     }
 }
 
 //validatins: Allow Numeric
 export class NumericFieldValidators {
-    static validNumericField(fc: FormControl) {
-        if (fc.value != undefined && fc.value != "") {
-            const regex = /[0-9]+/;
+    static validNumericField() {
+        return (fc: FormControl): ValidationErrors | null => {
+            if (fc.value != undefined && fc.value != "") {
+                const regex = /[0-9]+/;
 
-            if (regex.test(fc.value)) {
-                return null;
+                if (regex.test(fc.value)) {
+                    return null;
+                } else {
+                    return { validNumericField: true }
+                }
             } else {
-                return { validNumericField: true }
+                return null;
             }
-        } else {
-            return null;
         }
     }
 }
 
 //validatins: Allow char and space only
 export class OnlyCharFieldValidators {
-    static validOnlyCharField(fc: FormControl) {
-        if (fc.value != undefined && fc.value != "") {
-            const regex = /^[a-zA-Z ]+$/;
+    static validOnlyCharField() {
+        return (fc: FormControl): ValidationErrors | null => {
+            if (fc.value != undefined && fc.value != "") {
+                const regex = /^[a-zA-Z ]+$/;
 
-            if (regex.test(fc.value)) {
-                return null;
+                if (regex.test(fc.value)) {
+                    return null;
+                } else {
+                    return { validOnlyCharField: true }
+                }
             } else {
-                return { validOnlyCharField: true }
+                return null;
             }
-        } else {
-            return null;
         }
     }
 }
 
 //validatins: Allow Email
 export class EmailFieldValidators {
-    static validEmailField(fc: FormControl) {
-        if (fc.value != undefined && fc.value != "") {
-            const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+    static validEmailField() {
+        return (fc: FormControl): ValidationErrors | null => {
+            if (fc.value != undefined && fc.value != "") {
+                const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 
-            if (regex.test(fc.value)) {
-                return null;
+                if (regex.test(fc.value)) {
+                    return null;
+                } else {
+                    return { validEmailField: true }
+                }
             } else {
-                return { validEmailField: true }
+                return null;
             }
-        } else {
-            return null;
         }
     }
 }
 
 //Validation : Not allow whitespace only
 export class NoWhiteSpaceValidator {
-    static noWhiteSpaceValidator(fc: FormControl) {
-        if (fc.value != undefined && fc.value != "" && fc.value != null) {
-            const isWhiteSpace = (fc.value.toString().trim().length === 0)
-            if (!isWhiteSpace) {
-                return null;
+    static noWhiteSpaceValidator() {
+        return (fc: FormControl): ValidationErrors | null => {
+            if (fc.value != undefined && fc.value != "" && fc.value != null) {
+                const isWhiteSpace = (fc.value.toString().trim().length === 0)
+                if (!isWhiteSpace) {
+                    return null;
+                } else {
+                    return { noWhiteSpaceValidator: true }
+                }
             } else {
-                return { noWhiteSpaceValidator: true }
+                return null;
             }
-        } else {
-            return null;
         }
     }
 }
