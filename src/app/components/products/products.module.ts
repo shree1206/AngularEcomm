@@ -4,16 +4,23 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { AddProductComponent } from './physical/add-product/add-product.component';
 import { ProductListComponent } from './physical/product-list/product-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { CKEditorModule } from 'ngx-ckeditor';
 
 
 @NgModule({
-  declarations: [
-    AddProductComponent,
-    ProductListComponent
-  ],
+  declarations: [AddProductComponent, ProductListComponent],
   imports: [
     CommonModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+    NgbModule,
+    NgxDatatableModule,
+    CKEditorModule
   ]
 })
 export class ProductsModule { }
